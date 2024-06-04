@@ -1,0 +1,64 @@
+{% extends "property/common.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <aside class="col-lg-6">
+            <div class="border rounded-4 mb-3 d-flex justify-content-center">
+              <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="{{ first_image.image.url }}">
+                <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="{{ first_image.image.url }}" />
+              </a>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+            {% for image in images %}
+                <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="{{ image.image.url }}" class="item-thumb">
+                  <img width="60" height="60" class="rounded-2" src="{{ image.image.url }}" />
+                </a>
+            {% endfor %}
+            </div>
+        </aside>
+        <div class="col-md-5">
+            <div class="project-info-box mt-0">
+                <h5>Property Details</h5>
+                <p class="mb-0"> {{ objs.details }}</p>
+            </div><!-- / project-info-box -->
+
+            <div class="project-info-box">
+                <p><b>Title:</b> {{ objs.property }}</p>
+                <p><b>Category:</b> {{ objs.category }}</p>
+                <p><b>City:</b> {{ objs.subcity.city }}</p>
+                <p><b>Subcity:</b> {{ objs.subcity }}</p>
+                <p><b>Address:</b> {{ objs.address }}</p>
+                <p><b>Uploaded by:</b> <a href="{% url 'user' objs.user.id %}"> {{ objs.user.first_name }} {{ objs.user.last_name }}</p></a>
+                <p><b>Mobile:</b> {{ objs.user.profile.mobile }}</p>
+                <p><b>Uploaded at:</b> {{ objs.updated_at|date:"F d, Y"}} </p>
+
+                {% if curr_user == objs.user %}
+                <a href="{% url 'property_update' objs.id %}"><button class="btn btn-outline-info">Edit The Property</button></a>
+                <a href="{% url 'delete_property_post' objs.id %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+
+                {% else %}
+                  {% if objs.rented %}
+                  <p class="danger"><b>Sorry the property has been taken!</b></p>
+                  {% else %}
+                  <a href="{% url 'chat_room_messages_with_property' objs.user.id objs.id %}"><button class="btn btn-outline-info">Contact the owner</button></a>
+                  {% endif %}
+                {% endif %}
+            </div>
+
+<!-- / project-info-box -->
+        </div><!-- / column -->
+        <!-- <div class="col-md-7">
+            <img src="{{ objs.image.url }}" alt="project-image" class="rounded">
+            <div class="project-info-box">
+                {% if objs.rented %}
+                <div class="alert alert-danger">
+                  <p class="danger"><b>Sorry the property has been taken!</b></p>
+                </div>
+                
+                <a href="{% url 'requestionfill' pk=objs.id %}?id={{ objs.id }}"><button class="btn btn-outline-info">Contact the owner</button></a>
+                {% endif %}
+            </div>
+        </div> -->
+    </div>
+</div>
+{% endblock content %}

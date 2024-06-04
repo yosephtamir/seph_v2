@@ -1,0 +1,75 @@
+{% extends "property/common.html" %}
+{% block content %}
+  <div class="input-group mb-4">
+    <form style="display: flex; width: 100%; margin-top: 10px;" method="GET">
+      <input type="text" name="q" value="{{ search_query }}" class="form-control" id="advanced-search-input" placeholder="Filter properties by category, price, Address or Details" />
+      <button class="btn btn-outline-info" id="advanced-search-button" type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+    </form>
+  </div>
+
+  <div class="container mt-5">
+    <div class="row">
+    {% for pro in pros %}
+            <div class="col-md-4 mt-3">
+                <div class="card p-3">
+                    <div class="d-flex flex-row mb-3"><img id="prolistimage" src="{{  pro.first_image.image.url }}" style="width: 150px; height: 150px; object-fit: contain;">
+                        <div class="d-flex flex-column ml-2"><span>{{ pro.property }}</span><span class="text-black-50"> {{ pro.subcategory }} </span></div>
+                    </div>
+                    <h6> {{ pro.details|truncatechars:85 }} </h6>
+                    <div class="d-flex justify-content-between install mt-3"><span>{{ pro.updated_at }}</span><span class="text-primary"> <a href=" {% url 'propertydetails' pk=pro.id %}">Detail&nbsp;<i class="fa fa-angle-right"></i></a></span></div>
+                </div>
+            </div>
+    {% endfor %}
+        </div> 
+    </div>
+    {% if search_query %}
+    <div class="col-md-12 mt-5">
+
+      {% if is_paginated %}
+    
+          {% if page_obj.has_previous %}
+            <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?q={{ search_query }}&page=1">First</a>
+          {% endif %}
+    
+          {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+              <a class="bg-secondary border-secondary btn btn-info mb-4 paginator" href="?q={{ search_query }}&page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?q={{ search_query }}&page={{ num }}">{{ num }}</a>
+            {% endif %}
+          {% endfor %}
+    
+          {% if page_obj.has_next %}
+            <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?q={{ search_query }}&page={{ page_obj.paginator.num_pages }}">Last</a>
+          {% endif %}
+    
+        {% endif %}
+    </div>
+    {% else %}
+    <div class="col-md-12 mt-5">
+
+        {% if is_paginated %}
+      
+            {% if page_obj.has_previous %}
+              <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?page=1">First</a>
+            {% endif %}
+      
+            {% for num in page_obj.paginator.page_range %}
+              {% if page_obj.number == num %}
+                <a class="bg-secondary border-secondary btn btn-info mb-4 paginator" href="?page={{ num }}">{{ num }}</a>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?page={{ num }}">{{ num }}</a>
+              {% endif %}
+            {% endfor %}
+      
+            {% if page_obj.has_next %}
+              <a class="border-secondary text-secondary btn btn-outline-info mb-4 paginator" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+      
+          {% endif %}
+      </div>
+  {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+/*Common properties of the web page*/
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0d9aff07;
+}
+* {
+    color: #0D99FF;
+}
+p {
+    color: black;
+}
+a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+}
+@keyframes ups {
+    from {
+      transform: translateY(-100px);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }

@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description=" content="About Inclusive Technologies">
+    <meta name="keywords" content="int, Inclusive Technologies, int Ethiopia">
+    <meta name="author" content="Yoseph Tamirat, Mahilet Seife, Nagasa Fufa, inclusive Technologies">
+    <link rel="shortcut icon thumbnail" href="{% static '/about/images/INTLogoWhite.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/about/styles/container_about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/about/styles/common_about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/about/styles/footer_about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/about/styles/header_about.css' %}">
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>int - About</title>
+</head>
+<body>
+    <header>
+        <a href="{% url 'Home' %}"><img src="{% static '/about/images/INTLogo.png' %}" alt="int logo" class="logo"></a>
+        <h1 class="company">inclusive Technologies</h1>
+    </header>
+    <div class="container">
+        <div class="colm">
+            <div class="mobcol">
+                <img src="{% static '/about/images/hero-bg.png' %}" alt="hero-bg" class="top">
+            </div>
+            <div class="leftcolm">
+                <H1 class="intb">
+                    Inclusive Technologies
+                </H1>
+                <p>
+                    We offer a wide variety of web services including hosting event pages at affordable prices. If you have any inquiries, please do not hesitate to get in touch with us!
+                </p>
+            </div>
+            <!--<div class="rightcolm">
+                <img src="./static/images/hero-bg.png" alt="hero-bg" class="top">
+            </div> -->
+        </div>
+    </div>
+
+    <div class="contb">
+        <p class="services">What We Do</p>
+        <div class="flowcont">
+            <div class="flowcol">
+                <img src="{'% static /about/images/webdev.png' %}" alt="webdev" class="dev red">
+                <h2>Web Development</h2>
+                <p>We develop a user friendly and,
+                   interactive websites based on client's requeriments</p>
+                   <ul>
+                    <li>E-Commerce</li>
+                    <li>Business Websites</li>
+                    <li>Blog Websites</li>
+                </ul>
+                <button class="wdev"><a href="https://gafersa.hightier.tech">Explore Portfolio</a></button>
+            </div>
+            <div class="flowcol">
+                <img src="{% static '/about/images/Dig_inv_card.png' %}" alt="Dig_inv_card" class="dev blue">
+                <h2>Digital Invitation Card</h2>
+                <p>We develop and host a digital invitation cards,
+                    according to the client's design requeriments</p>
+                    <ul>
+                        <li>Thank You Card</li>
+                        <li>Wedding Invitation</li>
+                        <li>Event Invitation with Entery coupons</li>
+                    </ul>
+                    <button class="invc"><a href="#">Explore Portfolio</a></button>
+            </div>
+            <div class="flowcol">
+                <img src="{% static '/about/images//Dig_inv_bus_card.png' %}" alt="Dig_inv_bus_card" class="dev green">
+                <h2>Digital Business Card</h2>
+                <p>We develop and host an easy and QR readable digital business cards.</p>
+                    <ul>
+                        <li>Personal BC</li>
+                        <li>Corporate BC</li>
+                        <li>Vertual space</li>
+                    </ul>
+                    <button class="bc"><a href="https://mahletseifu-portfolio.netlify.app/">Explore Portfolio</a></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="contb">
+        <p class="services">Contact Us</p>
+        <div class="socialcontainer">
+            <div class="social">
+                <h3 class="point point_head">Feel Free to Reach Us On:</h3>
+                <div class="social_column">
+                    <div class="social_left">
+                        <h3 class="point point_li">Phone</h3>
+                        <a href="tel:0930845323"><h4 class="subtitle">+251 930 84 5323</h4></a>
+                        <a href="tel:0936212355"><h4 class="subtitle">+251 936 21 2355</h4></a>
+                        <a href="tel:0910047640"><h4 class="subtitle">+251 910 04 7640</h4></a>
+
+                        <h3 class="point point_li">Email</h3>
+                        <a href="mailto:sihranf@gmail.com"><h4 class="subtitle">sihranf@gmail.com</h4></a>
+                        <a href="mailto:akotet2123@gmail.com"><h4 class="subtitle">akotet2123@gmail.com</h4></a>
+                        <a href="mailto:yosephtamir@gmail.com"><h4 class="subtitle">yosephtamir@gmail.com</h4></a>
+                        
+                    </div>
+                    <div class="social_right">
+                        <h3 class="point point_li">Social</h3>
+                        <div class="socialaddress">
+                            <a href="https://www.linkedin.com/company/ur2-technologies"><img class="socialicons ln" src="{% static '/about/images/linkedin-svgrepo-com.svg' %}"></a>
+                            <a href="https://github.com/yosephtamir"><img class="socialicons gh" src="{% static '/about/images/github-svgrepo-com.svg' %}"></a>
+                            <a href="https://t.me/yosephtamir"><img class="socialicons tg" src="{% static '/about/images/telegram-svgrepo-com.svg' %}"></a>
+                            <a href="https://www.facebook.com/gmt.joseph"><img class="socialicons fb" src="{% static '/about/images/facebook-1-svgrepo-com.svg' %}"></a>
+                            <a href="https://www.instagram.com/yosephtamir/"><img class="socialicons ig" src="{% static '/about/images/instagram-2016-logo-svgrepo-com.svg' %}"></a>
+                            <a href="https://twitter.com/yosephtamir"><img class="socialicons x" src="{% static '/about/images/twitter-x-logo-black-round-20851.svg' %}"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+
+    </footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends "property/common.html" %}
+{% load crispy_forms_tags %}
+{% load custom_filters_property_post %}
+{% block content %}
+<form method="POST" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">
+            {% if is_update %}
+                Update a property
+            {% else %}
+                Post a property
+            {% endif %}
+        </legend>
+        {{ prop_form|crispy }}
+    
+        {{ prop_img_formset.management_form }}
+        {% for form in prop_img_formset %}
+            <div class="form-row align-items-center">
+                <div class="col">
+                    {{ form.image|as_crispy_field }}
+                </div>
+                <div class="col-auto">
+                    {% if form.instance.pk %}
+                        <img src="{{ form.instance.image.url }}" alt="Property Image" width="100" height="100">
+                        {{ form.DELETE.label_tag }} {{ form.DELETE }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </fieldset>
+    <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">
+            {% if is_update %}
+                Update
+            {% else %}
+                Post
+            {% endif %}
+        </button>
+    </div>
+</form>
+{% if is_update %}
+<a href="{% url 'delete_property_post' property_instance.id %}"><button type="submit" class="btn btn-danger">Delete</button></a>
+{% endif %}
+{% endblock content %}

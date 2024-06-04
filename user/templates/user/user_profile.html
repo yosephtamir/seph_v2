@@ -1,0 +1,42 @@
+{% extends "property/common.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+	<div class="media">
+		<img class="rounded-circle account-img" src="{{  user.profile.avatar.url  }}">
+		<div class="media-body">
+			<h2 class="account-heading"> {{ user.first_name }} {{user.last_name }} </h2>
+			<a href="mailto:{{ user.email }}"><p class="text-secondary"> {{ user.email }} </p></a> 
+            <div class="row">
+                <p class="text-secondary mr-2"><a href="{% url 'chat_room_messages' user.id %}"><button class="btn btn-outline-info">Message</button></a></p>
+                {% if user.profile.mobile %}
+                <p class="text-secondary mr-2"><a href="tel:{{ user.profile.mobile }}"><button class="btn btn-outline-info">{{ user.profile.mobile }}</button></a></p>
+                {% endif %}
+            </div>
+		</div>
+	</div>
+</div>
+<div class="profile-container col-md-6">
+    <p class="profile-container-header">Address</p>
+    {% if user.profile.region %}
+    <div class="row d-flex profiledetails"><strong>Region:  </strong>  {{ user.profile.region }}
+    </div>
+    {% endif %}
+    {% if user.profile.city %}
+    <div class="row d-flex profiledetails"><strong>City:  </strong>  {{ user.profile.city }}
+    </div>
+    {% endif %}
+    {% if user.profile.subcity %}
+    <div class="row d-flex profiledetails"><strong>Subcity:  </strong>  {{ user.profile.subcity }}
+    </div>
+    {% endif %}
+    {% if user.profile.address %}
+    <div class="row d-flex profiledetails"><strong>Address:  </strong>  {{ user.profile.address }}
+    </div>
+    {% endif %}
+    {% if user.profile.optional %}
+    <div class="row d-flex profiledetails"><strong>Optional Mobile:  </strong> <a href="tel:{{ user.profile.optional }}">  {{ user.profile.optional }} </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

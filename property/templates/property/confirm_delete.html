@@ -1,0 +1,11 @@
+{% extends "property/common.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Are you sure you want to delete {{ property_instance.property }}?</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, delete</button>
+        <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock content %}

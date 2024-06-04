@@ -1,0 +1,45 @@
+.roomuser {
+    display: flex;
+
+    justify-content: center;
+    width: 100%;
+}
+
+.roomusercontainer {
+    margin-top: 5px;
+    display: flex;
+    width: 60%;
+    border: 1px solid #0D99ff;
+    height: 50px;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #0D99ff;
+}
+.usrlebel {
+    display: flex;
+    flex-direction: column;
+}
+
+#avatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+#usrnme {
+    font-size: 16px;
+    color: #0D99ff;
+    margin: 0px;
+}
+@media only screen and (max-width: 720px) {
+    .roomusercontainer {
+        width: 100%;
+    }
+ }
+ @media only screen and (max-width: 360px) {
+    .roomusercontainer {
+        height: fit-content;
+    }
+ }

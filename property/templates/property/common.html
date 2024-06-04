@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- About -->
+    <meta name="description" content="SePh is an innovative platform designed to make the process of finding a house easier than ever">
+    <meta name="keywords" content="seph, property agent Ethiopia, int, Inclusive Technologies, int Ethiopia">
+    <meta name="author" content="Yoseph Tamirat, Mahilet Seife, Nagasa Fufa, inclusive Technologies">
+
+    <meta property="og:title" content="Seph - connecting people in search of homes with those who have properties available">
+    <meta property="og:image" content="{% static 'common/images/70x67seph.png' %}">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="SePh is an innovative platform designed to make the process of finding a house easier than ever">
+  
+    <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="connecting people in search of homes with those who have properties available">
+    <meta name="twitter:title" content="Seph">
+    <meta name="twitter:description" content="SePh is an innovative platform designed to make the process of finding a house easier than ever"">
+    <meta name="twitter:image" content="{% static 'common/images/70x67seph.png' %}">
+
+    <!-- icon and thumbnail -->
+    <link href="{% static 'common/images/70x67seph.png' %}" rel="icon thumbnail">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+    <link rel="stylesheet" type="text/css" href="{% static '/common/styles/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/common/styles/footer.css' %}">
+        <!-- for social-network icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-z+1hUHGB4FT5Jl0V4VphZUhDfoS15p6lMT+paYR5WtOahau0MjZ2KjL2X5z5Zod8GWJxZFQkz0UnwRxl9tsGqA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% if title == 'Home' %}
+    <link rel="stylesheet" type="text/css" href="{% static '/common/styles/home.css' %}">
+    {% endif %}
+
+    {% if title == 'Messages' %}
+    <link rel="stylesheet" type="text/css" href="{% static '/common/styles/chatroom.css' %}">
+    {% endif %}
+    {% if title == 'Chat' %}
+    <link rel="stylesheet" type="text/css" href="{% static '/common/styles/chat.css' %}">
+    {% endif %}
+
+    {% if title %}
+        <title>Seph - {{ title }}</title>
+    {% else %}
+        <title>SePh</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4 seph" href="{% url 'Home' %}"><img src="{% static 'common/images/70x67seph.png' %}" alt="SePh" class="logo_img"></a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+              <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'Home' %}">Home</a>
+                <a class="nav-item nav-link" href="{% url 'property' %}">Properties</a>
+                {% if unread_message_count == 0 %}
+                <a class="nav-item nav-link" href="{% url 'user_chat_rooms' %}">Messages</a>
+                {% elif unread_message_count == 1 %}
+                <a class="nav-item nav-link" href="{% url 'user_chat_rooms' %}">(1) Message</a>
+                {% else %}
+                <a class="nav-item nav-link" href="{% url 'user_chat_rooms' %}">({{ unread_message_count }}) Messages</a>
+                {% endif %}
+                <a class="nav-item nav-link" href="{% url 'about' %}">About</a>
+              </div>
+              <!-- Navbar Right Side -->
+              <div class="navbar-nav">
+                {% if user.is_authenticated %}
+                  <a class="nav-item nav-link align-content-center" href="{% url 'profile' %}">Profile</a>
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <a class="nav-item nav-link"><button class="btn btn-outline-info signout" type="submit">Sign out</button></a>
+                  </form>
+                {% else %}
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Sign In</a>
+                  <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      {% block othercontent %}{% endblock %}
+    <main role="main" class="container mt-12">
+      <div class="row">
+        {% if profile %}
+        <div class="col-md-8">
+        {% else %}
+        <div class="col-md-12">
+        {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        {% if profile %}
+          <div class="col-md-4">
+            <div class="content-section">
+              <p class='text-muted'> My Properties
+                <ul class="list-group">
+                  {% for property in myproperties %}
+                    <li class="list-group-item list-group-item-light"><a href=" {% url 'propertydetails' pk=property.id %}"> {{ property.property }}</a></li>
+                  {% endfor %}
+                </ul>
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </main>
+    <footer class="mainfooter" role="contentinfo">
+      <div class="footer-middle">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 col-sm-6">
+            <!--Column1-->
+            <div class="footer-pad">
+              <h4>About Us</h4>
+              <ul class="list-unstyled">
+                <li><a href="{% url 'about' %}"></a></li>
+                We offer a wide variety of web services including hosting event pages at affordable prices. If you have any inquiries, please do not hesitate to get in touch with us!</a></li>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <!--Column1-->
+            <div class="footer-pad">
+              <h4>Contact Us</h4>
+              <ul class="list-unstyled">
+                <li><a href="tel: 0936212355">0936212355</a></li>
+                <li><a href="tel: 0910047640">0910047640</a></li>
+                <li><a href="tel: 0930845323">0930845323</a></li>
+                <li><a href="mailto: yoseftamir@gmail.com">yoseftamir@gmail.com</a></li>
+                <li><a href="mailto: sihranf@gmail.com">sihranf@gmail.com</a></li>
+                <li><a href="mailto: akotet2123@gmail.com">akotet2123@gmail.com</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <!--Column1-->
+            <div class="footer-pad">
+              <h4>Address</h4>
+              <ul class="list-unstyled">
+                <li><a href="#">Ethiopia, Oromia, Shaggar city
+                  Gafarsa Guje Subcity</a></li>
+                <li><a href="#">Monday to Friday: 8:30am – 5:30pm</a></li>
+                <li>
+                  <a href="#"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <h4>Follow Us</h4>
+                <ul class="social-network social-circle">
+                 <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                 <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin"></i></a></li>
+                </ul>       
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 copy">
+            <p class="text-center">&copy; Copyright 2024 - Inclusive Technologies.  All rights reserved.</p>
+          </div>
+        </div>
+    
+        </div>
+        </div>
+      </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    {% if property_post %}
+    <script type="text/javascript">
+      $(document).ready(function () {
+          // Bind to the change event of the city select element
+          $("#id_city").change(function () {
+              var url = "{% url 'ajax_load_subcities' %}";  // get the URL of the `load_subcities` view
+              var cityId = $(this).val();  // get the selected city ID from the HTML input
+              $.ajax({
+                  url: url,
+                  data: {
+                      'city_id': cityId  // add the city ID to the GET parameters
+                  },
+                  success: function (data) {
+                      $("#id_subcity").html("");  // clear the existing options in the subcity select
+                      $.each(data, function (key, value) {
+                          $("#id_subcity").append($('<option>', {
+                              value: value.id,
+                              text: value.subcity  // assuming 'name' is the field in SubCity model
+                          }));
+                      });
+                  }
+              });
+          });
+      });
+    </script>
+    {% endif %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+</body>
+</html>

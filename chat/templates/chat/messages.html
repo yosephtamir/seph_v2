@@ -1,0 +1,56 @@
+{% extends 'property/common.html' %}
+{% load custom_filters_message %}
+{% load static %}
+{% block content %}
+
+<div id="chatcontainer">
+    {% for chat in roommessage %}
+        {% if chat.sent_from == curr_user %}
+            <div id="rightchat">
+                {% if chat.property %}
+                <div class="property-replay">
+                    <a href="{%url 'propertydetails' pk=chat.property.id%}">({{ chat.property.category }}) {{chat.property.property}}</a>
+                </div>
+                {% endif %}
+                <p id="mess"> {{ chat.message }} </p>
+                <small id="text-muted">{{ chat.updated_at|date:"M d Y, h:i A" }}</small>
+            </div>
+        {% else %}
+            <div id="leftchat">
+                {% if chat.property %}
+                <div class="property-replay">
+                    <a href="{%url 'propertydetails' pk=chat.property.id%}">({{ chat.property.category }}) {{chat.property.property}}</a>
+                </div>
+
+                {% endif %}
+                <p id="mess"> {{ chat.message }} </p>
+                <small id="text-muted">{{ chat.updated_at|date:"M d Y, h:i A" }}</small>
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="contents-section">
+    <form id="messagerep" method="POST" action="">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <div class="form-group">
+                {% if form.message.errors %}
+                    {{ form.message|add_class:"form-control form-control is-invalid" }}
+                    <div class="invalid-feedback">
+                        {% for error in form.message.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.message|add_class:"form-control form-control-sm" }}
+                {% endif %}
+            </div>
+        </fieldset>
+        <div id="form-group">
+            <button type="submit" class="btn btn-outline-info">Send</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

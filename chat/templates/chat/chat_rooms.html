@@ -1,0 +1,18 @@
+{% extends 'property/common.html' %}
+{% load static %}
+{% block content %}
+
+<div class="chat-room-list">
+    {% for room, user in chat_rooms_with_users %}
+        <div class="roomusercontainer">
+            <img src="{{ user.profile.avatar.url }}" alt="" id="avatar">
+            <div class="usrlebel">
+                <p id="usrnme"><a href="{% url 'chat_room_messages' user.id %}" id="usrnme">{{ user.first_name }} {{ user.last_name }}</a></p>
+                <small class="text-muted">{{ room.last_message|slice:":15" }}     :{{ room.updated_at|date:"M d Y,   h:i A" }}</small>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
