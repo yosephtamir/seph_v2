@@ -82,9 +82,9 @@ def propertyPost(request, property_id=None):
                     image = form.cleaned_data.get('image')
                     delete = form.cleaned_data.get('DELETE')
                     if image and not delete:
-                        max_size = 3 * 1024 * 1024  # 1 MB
+                        max_size = 10 * 1024 * 1024  # 10 MB
                         if image.size > max_size:
-                            messages.warning(request, 'Image size exceeds the limit (3 MB).')
+                            messages.warning(request, 'Image size exceeds the limit (10 MB).')
                             return redirect('propertypost')  # Redirect to the same page
                         PropertyImage.objects.create(property=property_instance, image=image)
                     elif delete and form.instance.pk:
