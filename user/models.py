@@ -9,7 +9,7 @@ def user_directory_path(instance, filename):
     '''Used to make a unique location for each user's
        property file handling location'''
     ext = filename.split('.')[-1]
-    new_filename = f"{instance.user.username}_{timezone.now}.{ext}"
+    new_filename = f"{instance.user.username}_{timezone.now()}.{ext}"
     return f'user_{instance.user.id}/profile_pic/{new_filename}'
 
 class Region(models.Model):
