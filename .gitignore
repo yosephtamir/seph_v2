@@ -1,4 +1,4 @@
 .env
 db.*
 .vscode
-__pycache__
+__pycache__/
